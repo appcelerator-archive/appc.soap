@@ -37,6 +37,26 @@ describe('Connector', function () {
 				should(err).be.not.ok;
 				should(result).be.ok;
 				should(result).be.an.Object;
+				should(result.City).be.eql('Elkton');
+				next();
+			});
+		});
+
+		it('should support soap-only wsdl', function (next) {
+			var model = server.getModel('screenshots.wsdl/Global');
+			should(model).be.ok;
+			model.getSoap({
+				apikey: 'ab92960c78f446cb2bf4dd6365fe755a4f73755c2c0e',
+				url: 'http://www.google.com/',
+				width: 400,
+				format: 'JPEG',
+				fullscreen: false,
+				mobile: false
+			}, function (err, result) {
+				should(err).be.not.ok;
+				should(result).be.ok;
+				should(result.encoding).be.eql('base64');
+				should(result.image).be.not.empty;
 				next();
 			});
 		});
@@ -54,7 +74,7 @@ describe('Connector', function () {
 		it('should stand up GET APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'GET',
-				uri: 'http://localhost:' + server.port + '/api/global/GetCityWeatherByZIP?ZIP=21921',
+				uri: 'http://localhost:' + server.port + '/api/appc.soap/global/GetCityWeatherByZIP?ZIP=21921',
 				auth: {
 					user: server.config.apikey,
 					password: ''
@@ -71,7 +91,7 @@ describe('Connector', function () {
 		it('should stand up POST APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'POST',
-				uri: 'http://localhost:' + server.port + '/api/weather/weathersoap/GetCityForecastByZIP',
+				uri: 'http://localhost:' + server.port + '/api/appc.soap/weather/weathersoap/GetCityForecastByZIP',
 				body: {
 					ZIP: '21921'
 				},
@@ -92,7 +112,7 @@ describe('Connector', function () {
 		it('should handle errors through API', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'GET',
-				uri: 'http://localhost:' + server.port + '/api/global/GetCityWeatherByZIP?ZIP=such-bad-zip',
+				uri: 'http://localhost:' + server.port + '/api/appc.soap/global/GetCityWeatherByZIP?ZIP=such-bad-zip',
 				auth: {
 					user: server.config.apikey,
 					password: ''
