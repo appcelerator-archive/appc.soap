@@ -51,7 +51,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it('should stand up APIs for methods', function makeSureAuthIsRequired(cb) {
+		it('should stand up GET APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'GET',
 				uri: 'http://localhost:' + server.port + '/api/global/GetCityWeatherByZIP?ZIP=21921',
@@ -64,6 +64,27 @@ describe('Connector', function () {
 				should(body.success).be.true;
 				should(body.global).be.ok;
 				should(body.global.City).be.eql('Elkton');
+				cb();
+			});
+		});
+
+		it('should stand up POST APIs for methods', function makeSureAuthIsRequired(cb) {
+			request({
+				method: 'POST',
+				uri: 'http://localhost:' + server.port + '/api/weather/weathersoap/GetCityForecastByZIP',
+				body: {
+					ZIP: '21921'
+				},
+				auth: {
+					user: server.config.apikey,
+					password: ''
+				},
+				json: true
+			}, function (err, response, body) {
+				should(body.success).be.true;
+				should(body.weathersoap).be.ok;
+				should(body.weathersoap.City).be.eql('Elkton');
+				should(body.weathersoap.ForecastResult).be.an.Object;
 				cb();
 			});
 		});
