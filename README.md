@@ -5,7 +5,7 @@ This is an Arrow connector to SOAP based Web Services.
 # Installation
 
 ~~~
-$ appc install connector/appc.labs.soap --save
+$ appc install connector/appc.labs.soap
 ~~~
 
 # Usage
