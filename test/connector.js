@@ -17,7 +17,7 @@ describe('Connector', function () {
 	describe('Model Generation', function () {
 
 		it('should expose simple methods', function (next) {
-			var model = server.getModel('appc.soap/Global');
+			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
 
 			model.GetWeatherInformation(function (err, results) {
@@ -30,7 +30,7 @@ describe('Connector', function () {
 		});
 
 		it('should allow passing params', function (next) {
-			var model = server.getModel('appc.soap/Global');
+			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
 
 			model.GetCityWeatherByZIP({ZIP: '21921'}, function (err, result) {
@@ -62,7 +62,7 @@ describe('Connector', function () {
 		});
 
 		it('should interpret errors properly', function (next) {
-			var model = server.getModel('appc.soap/Global');
+			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
 
 			model.GetCityWeatherByZIP({ZIP: 'zip so bad, i cried a little'}, function (err, result) {
@@ -74,7 +74,7 @@ describe('Connector', function () {
 		it('should stand up GET APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'GET',
-				uri: 'http://localhost:' + server.port + '/api/appc.soap/global/GetCityWeatherByZIP?ZIP=21921',
+				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/GetCityWeatherByZIP?ZIP=21921',
 				auth: {
 					user: server.config.apikey,
 					password: ''
@@ -91,7 +91,7 @@ describe('Connector', function () {
 		it('should stand up POST APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'POST',
-				uri: 'http://localhost:' + server.port + '/api/appc.soap/weather/weathersoap/GetCityForecastByZIP',
+				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/weather/weathersoap/GetCityForecastByZIP',
 				body: {
 					ZIP: '21921'
 				},
@@ -112,7 +112,7 @@ describe('Connector', function () {
 		it('should handle errors through API', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'GET',
-				uri: 'http://localhost:' + server.port + '/api/appc.soap/global/GetCityWeatherByZIP?ZIP=such-bad-zip',
+				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/GetCityWeatherByZIP?ZIP=such-bad-zip',
 				auth: {
 					user: server.config.apikey,
 					password: ''

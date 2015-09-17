@@ -2,7 +2,7 @@ var should = require('should'),
 	Arrow = require('arrow'),
 	server = new Arrow({
 		connectors: {
-			'appc.soap': {
+			'appc.labs.soap': {
 				soapWSDL: 'http://wsf.cdyne.com/WeatherWS/Weather.asmx?WSDL',
 				generateModelsFromSchema: true,
 				modelAutogen: true,
@@ -16,7 +16,7 @@ var should = require('should'),
 				}
 			},
 			'screenshots.wsdl': {
-				connector: 'appc.soap',
+				connector: 'appc.labs.soap',
 				soapWSDL: 'http://api.thumbnail.ws/soap?wsdl',
 				generateModelsFromSchema: true,
 				modelAutogen: true,
@@ -31,7 +31,7 @@ var should = require('should'),
 			}
 		}
 	}),
-	connector = server.getConnector('appc.soap'),
+	connector = server.getConnector('appc.labs.soap'),
 	connectorScreenshots = server.getConnector('screenshots.wsdl');
 
 exports.Arrow = Arrow;

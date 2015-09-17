@@ -1,7 +1,7 @@
 {
-	"name": "appc.soap",
+	"name": "appc.labs.soap",
 	"description": "Connector for SOAP Services",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"author": "Dawson Toth",
 	"maintainers": [
 		"Dawson Toth <dtoth@appcelerator.com>"

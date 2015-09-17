@@ -1,6 +1,6 @@
 module.exports = {
 	connectors: {
-		'appc.soap': {
+		'appc.labs.soap': {
 			// The URL to your Soap WSDL.
 			soapWSDL: '',
 
