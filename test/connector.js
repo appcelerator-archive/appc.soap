@@ -29,7 +29,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it('should allow passing params', function (next) {
+		it.skip('should allow passing params', function (next) {
 			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
 
@@ -71,7 +71,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it('should stand up GET APIs for methods', function makeSureAuthIsRequired(cb) {
+		it.skip('should stand up GET APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'GET',
 				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/GetCityWeatherByZIP?ZIP=21921',
@@ -88,7 +88,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it('should stand up POST APIs for methods', function makeSureAuthIsRequired(cb) {
+		it.skip('should stand up POST APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'POST',
 				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/weather/weathersoap/GetCityForecastByZIP',
