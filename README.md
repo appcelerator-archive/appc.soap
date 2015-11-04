@@ -10,7 +10,57 @@ $ appc install connector/appc.labs.soap
 
 # Usage
 
-Reference the connector in your model.
+If you set `generateModelsFromSchema` and `modelAutogen` to true in your configuration, then Models and APIs will
+be generated for you based on the WSDL you provide in your configuration.
+
+But in order for these to work properly, you will need to write a `handleResponse`
+method in the config. This special method handles SOAP responses, turning them in to
+JavaScript objects or arrays for setting up the models or collections.
+
+For example, a certain SOAP service for fetching current Stock prices...
+
+	http://www.webservicex.com/stockquote.asmx?WSDL
+
+... Might return a string of XML from an endpoint (simplified for brevity):
+
+~~~
+<StockQuotes>
+	<Stock>
+		<Symbol>AAPL</Symbol>
+		<Last>121.89</Last>
+		<Name>Apple Inc.</Name>
+	</Stock>
+</StockQuotes>
+~~~
+To make this more palatable, we need to write our handleResponse method to turn that to a plain JavaScript object:
+
+~~~
+handleResponse: function (result, next) {
+	require('xml2js').parseString(result, {explicitArray: false}, next);
+}
+~~~
+
+Now the connector will receive a nice JavaScript object, instead of the XML string it was given, which it can then
+properly return from your endpoint.
+
+~~~
+{
+	StockQuotes: {
+		Stock: {
+			Symbol: 'AAPL',
+			Last: 121.89,
+			Name: 'Apple Inc.'
+		}
+	}
+}
+~~~
+
+You might ask yourself, "Gosh, that's a lot of work. Why do I have to do that? Why can't you do it for me?" Well, to be
+fair, it's only 3 lines of code. And those 3 lines of code will vary drastically from SOAP server to SOAP server. The
+connector does a fair bit of work to normalize the data, and infer fields based on that data, but it is up to you to get
+it across the finish line.
+
+You can also reference the connector in your model, if you want to explicitly dictate which fields to include:
 
 ~~~
 var Account = Arrow.Model.extend('Account', {
@@ -18,23 +68,6 @@ var Account = Arrow.Model.extend('Account', {
         Name: { type: String, required: true, validator: /[a-zA-Z]{3,}/ }
     },
     connector: 'appc.labs.soap'
-});
-~~~
-
-If you want to map a specific model to a specific table, use metadata.
-For example, to map the `account` model to the table `accounts`, set it such as:
-
-~~~
-var Account = Arrow.Model.extend('account', {
-    fields: {
-        Name: { type: String, required: false, validator: /[a-zA-Z]{3,}/ }
-    },
-    connector: 'appc.labs.soap',
-    metadata: {
-        'appc.labs.soap': {
-            table: 'accounts'
-        }
-    }
 });
 ~~~
 
