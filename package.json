@@ -1,7 +1,7 @@
 {
 	"name": "appc.labs.soap",
 	"description": "Connector for SOAP Services",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"author": "Dawson Toth",
 	"maintainers": [
 		"Dawson Toth <dtoth@appcelerator.com>"
@@ -31,7 +31,8 @@
 		"mocha": "^2.2.5",
 		"nodemon": "^1.4.0",
 		"request": "^2.60.0",
-		"should": "^7.0.2"
+		"should": "^7.0.2",
+		"xml2js": "^0.4.15"
 	},
 	"scripts": {
 		"start": "appc run",

@@ -29,7 +29,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it.skip('should allow passing params', function (next) {
+		it('should allow passing params', function (next) {
 			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
 
@@ -61,6 +61,30 @@ describe('Connector', function () {
 			});
 		});
 
+		it('should get stocks', function (next) {
+			var model = server.getModel('stocks.wsdl/Global');
+			should(model).be.ok;
+			model.GetQuote({
+				symbol: 'AAPL'
+			}, function (err, result) {
+				should(err).be.not.ok;
+				should(result).be.ok;
+				should(result).have.property('StockQuotes');
+				should(result.StockQuotes).have.property('Stock');
+				should(result.StockQuotes.Stock).have.property('Symbol', 'AAPL');
+				should(result.StockQuotes.Stock).have.property('Name', 'Apple Inc.');
+				should(result.StockQuotes.Stock).have.property('Last');
+				should(result.StockQuotes.Stock).have.property('Date');
+				should(result.StockQuotes.Stock).have.property('Time');
+				should(result.StockQuotes.Stock).have.property('Change');
+				should(result.StockQuotes.Stock).have.property('Open');
+				should(result.StockQuotes.Stock).have.property('High');
+				should(result.StockQuotes.Stock).have.property('Low');
+				should(result.StockQuotes.Stock).have.property('Volume');
+				next();
+			});
+		});
+
 		it('should interpret errors properly', function (next) {
 			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
@@ -71,7 +95,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it.skip('should stand up GET APIs for methods', function makeSureAuthIsRequired(cb) {
+		it('should stand up GET APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'GET',
 				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/GetCityWeatherByZIP?ZIP=21921',
@@ -88,7 +112,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it.skip('should stand up POST APIs for methods', function makeSureAuthIsRequired(cb) {
+		it('should stand up POST APIs for methods', function makeSureAuthIsRequired(cb) {
 			request({
 				method: 'POST',
 				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/weather/weathersoap/GetCityForecastByZIP',
