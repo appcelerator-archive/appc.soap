@@ -26,19 +26,7 @@ module.exports = {
 			// Create models based on the WSDL that can be used in your API.
 			generateModelsFromSchema: true,
 			// Whether or not to generate APIs based on the methods in generated models. 
-			modelAutogen: true,
-
-			/**
-			 * Detect if the response is an error, or a successful response.
-			 */
-			handleResponse: function (result, next) {
-				if (result.Success === false) {
-					next(result.ResponseText);
-				}
-				else {
-					next(null, result);
-				}
-			}
+			modelAutogen: true
 		},
 		'screenshots.wsdl': {
 			connector: 'appc.labs.soap',
@@ -49,19 +37,7 @@ module.exports = {
 			// Create models based on the WSDL that can be used in your API.
 			generateModelsFromSchema: true,
 			// Whether or not to generate APIs based on the methods in generated models. 
-			modelAutogen: true,
-
-			/**
-			 * Detect if the response is an error, or a successful response.
-			 */
-			handleResponse: function (result, next) {
-				if (result.Success === false) {
-					next(result.ResponseText);
-				}
-				else {
-					next(null, result);
-				}
-			}
+			modelAutogen: true
 		},
 		'stocks.wsdl': {
 			connector: 'appc.labs.soap',
@@ -72,14 +48,7 @@ module.exports = {
 			// Create models based on the WSDL that can be used in your API.
 			generateModelsFromSchema: true,
 			// Whether or not to generate APIs based on the methods in generated models. 
-			modelAutogen: true,
-
-			/**
-			 * Detect if the response is an error, or a successful response.
-			 */
-			handleResponse: function (result, next) {
-				parseString(result, {explicitArray: false}, next);
-			}
+			modelAutogen: true
 		}
 	}
 };
