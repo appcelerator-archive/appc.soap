@@ -93,18 +93,45 @@ describe('Connector', function () {
 			}, function (err, result) {
 				should(err).be.not.ok;
 				should(result).be.ok;
-				should(result).have.property('StockQuotes');
-				should(result.StockQuotes).have.property('Stock');
-				should(result.StockQuotes.Stock).have.property('Symbol', 'AAPL');
-				should(result.StockQuotes.Stock).have.property('Name', 'Apple Inc.');
-				should(result.StockQuotes.Stock).have.property('Last');
-				should(result.StockQuotes.Stock).have.property('Date');
-				should(result.StockQuotes.Stock).have.property('Time');
-				should(result.StockQuotes.Stock).have.property('Change');
-				should(result.StockQuotes.Stock).have.property('Open');
-				should(result.StockQuotes.Stock).have.property('High');
-				should(result.StockQuotes.Stock).have.property('Low');
-				should(result.StockQuotes.Stock).have.property('Volume');
+				should(result).have.property('Symbol', 'AAPL');
+				should(result).have.property('Name', 'Apple Inc.');
+				should(result).have.property('Last');
+				should(result).have.property('Date');
+				should(result).have.property('Time');
+				should(result).have.property('Change');
+				should(result).have.property('Open');
+				should(result).have.property('High');
+				should(result).have.property('Low');
+				should(result).have.property('Volume');
+				next();
+			});
+		});
+
+		it('should allow reducing models', function (next) {
+			var model = Arrow.Model.reduce('stocks.file.wsdl/Global', 'SmallerStock', {
+				fields: {
+					symbol: {name: 'Symbol', type: String},
+					name: {name: 'Name', type: String},
+					Last: {type: Number}
+				}
+			});
+			should(model).be.ok;
+			should(model.GetQuote).be.ok;
+			model.GetQuote({
+				symbol: 'AAPL'
+			}, function (err, result) {
+				should(err).be.not.ok;
+				should(result).be.ok;
+				should(result).have.property('symbol', 'AAPL');
+				should(result).have.property('name', 'Apple Inc.');
+				should(result).have.property('Last');
+				should(result).not.have.property('Date');
+				should(result).not.have.property('Time');
+				should(result).not.have.property('Change');
+				should(result).not.have.property('Open');
+				should(result).not.have.property('High');
+				should(result).not.have.property('Low');
+				should(result).not.have.property('Volume');
 				next();
 			});
 		});

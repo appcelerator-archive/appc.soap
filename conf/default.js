@@ -59,7 +59,18 @@ module.exports = {
 			// Create models based on the WSDL that can be used in your API.
 			generateModelsFromSchema: true,
 			// Whether or not to generate APIs based on the methods in generated models. 
-			modelAutogen: true
+			modelAutogen: true,
+
+			// Make the stocks a bit more palatable.
+			handleResponse: function (result, next) {
+				require('xml2js').parseString(result, {explicitArray: false}, function (err, result) {
+					if (err) {
+						next(err);
+					} else {
+						next(null, result.StockQuotes.Stock);
+					}
+				});
+			}
 		}
 	}
 };
