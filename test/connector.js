@@ -85,6 +85,30 @@ describe('Connector', function () {
 			});
 		});
 
+		it('should get stocks using wsdl stored on disk', function (next) {
+			var model = server.getModel('stocks.file.wsdl/Global');
+			should(model).be.ok;
+			model.GetQuote({
+				symbol: 'AAPL'
+			}, function (err, result) {
+				should(err).be.not.ok;
+				should(result).be.ok;
+				should(result).have.property('StockQuotes');
+				should(result.StockQuotes).have.property('Stock');
+				should(result.StockQuotes.Stock).have.property('Symbol', 'AAPL');
+				should(result.StockQuotes.Stock).have.property('Name', 'Apple Inc.');
+				should(result.StockQuotes.Stock).have.property('Last');
+				should(result.StockQuotes.Stock).have.property('Date');
+				should(result.StockQuotes.Stock).have.property('Time');
+				should(result.StockQuotes.Stock).have.property('Change');
+				should(result.StockQuotes.Stock).have.property('Open');
+				should(result.StockQuotes.Stock).have.property('High');
+				should(result.StockQuotes.Stock).have.property('Low');
+				should(result.StockQuotes.Stock).have.property('Volume');
+				next();
+			});
+		});
+
 		it('should interpret errors properly', function (next) {
 			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;

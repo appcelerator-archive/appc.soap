@@ -8,10 +8,23 @@ This is an Arrow connector to SOAP based Web Services.
 $ appc install connector/appc.labs.soap
 ~~~
 
+In the generated configuration file, you will need to update the "soapWSDL" property. This can be either the URL to a
+WSDL, such as:
+
+~~~
+http://www.webservicex.com/stockquote.asmx?WSDL
+~~~
+
+Or, it can be the path to a locally stored WSDL file. This path will be relative to your project's directory:
+
+~~~
+./conf/stockquote.wsdl
+~~~
+
 # Usage
 
-If you set `generateModelsFromSchema` and `modelAutogen` to true in your configuration, then Models and APIs will
-be generated for you based on the WSDL you provide in your configuration.
+If you set `generateModelsFromSchema` and `modelAutogen` to true in your configuration, then Models and APIs will be
+generated for you based on the WSDL you provide in your configuration.
 
 You can also reference the connector in your model, if you want to explicitly dictate which fields to include:
 
@@ -28,9 +41,9 @@ var Account = Arrow.Model.extend('Account', {
 
 ## Unwrapping or Parsing Payloads
 
-The built in parsing won't fit every scenario. If it isn't properly parsing your endpoint, or you want to further unwrap
-the response, you can add your own "handleResponse" method to the config, as follows. This special method handles SOAP
-responses, turning them in to JavaScript objects or arrays for setting up the models or collections.
+The built in parsing will work for most scenarios. But, if it isn't properly parsing your endpoint, or you want to
+further unwrap the response, you can add your own "handleResponse" method to the config, as follows. This special method
+handles SOAP responses, turning them in to JavaScript objects or arrays for setting up the models or collections.
 
 For example, a certain SOAP service for fetching current Stock prices...
 
