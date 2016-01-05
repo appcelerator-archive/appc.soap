@@ -45,7 +45,7 @@ describe('Connector', function () {
 		it('should support soap-only wsdl', function (next) {
 			var model = server.getModel('screenshots.wsdl/Global');
 			should(model).be.ok;
-			model.getSoap({
+			model.getRequest({
 				apikey: 'ab92960c78f446cb2bf4dd6365fe755a4f73755c2c0e',
 				url: 'http://www.google.com/',
 				width: 400,
@@ -146,7 +146,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it('should stand up GET APIs for methods', function makeSureAuthIsRequired(cb) {
+		it('should stand up GET APIs for methods', function (cb) {
 			request({
 				method: 'GET',
 				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/GetCityWeatherByZIP?ZIP=21921',
@@ -163,7 +163,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it('should stand up POST APIs for methods', function makeSureAuthIsRequired(cb) {
+		it('should stand up POST APIs for methods', function (cb) {
 			request({
 				method: 'POST',
 				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/weather/weathersoap/GetCityForecastByZIP',
@@ -184,7 +184,7 @@ describe('Connector', function () {
 			});
 		});
 
-		it('should handle errors through API', function makeSureAuthIsRequired(cb) {
+		it('should handle errors through API', function (cb) {
 			request({
 				method: 'GET',
 				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/GetCityWeatherByZIP?ZIP=such-bad-zip',
