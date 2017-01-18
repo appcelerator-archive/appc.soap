@@ -106,6 +106,26 @@ You can customize this in your config by specifying `xmlOptions`:
 }
 ~~~
 
+## Connector Options
+
+- `connectionTimeout` - Service-level Timeout. Represents integer containing the number of milliseconds to wait for a server to send response headers (and start the response body) before aborting the request. Note that if the underlying TCP connection cannot be established, the OS-wide TCP connection timeout will overrule the timeout option
+
+~~~
+{connectionTimeout: 5000}
+~~~
+
+You can customize this in your config file:
+
+~~~
+{
+	connectors: {
+		'appc.labs.soap': {
+			// any connector options
+		}
+	}
+}
+~~~
+
 # Contributing
 
 This project is open source and licensed under the Apache Public License (version 2). Please consider forking this project to improve, enhance or fix issues. If you feel like the community will benefit from your fork, please open a pull request.
