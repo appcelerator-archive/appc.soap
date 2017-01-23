@@ -39,6 +39,26 @@ var Account = Arrow.Model.extend('Account', {
 
 # Customizing
 
+## Other Connector Options
+
+- `connectionTimeout` - Service-level Timeout. Represents integer containing the number of milliseconds to wait for a server to send response headers (and start the response body) before aborting the request. Note that if the underlying TCP connection cannot be established, the OS-wide TCP connection timeout will overrule the timeout option
+
+~~~
+{connectionTimeout: 5000}
+~~~
+
+You can customize the connector by adding any of the following options to your configuration file:
+
+~~~
+{
+	connectors: {
+		'appc.labs.soap': {
+			// any connector options
+		}
+	}
+}
+~~~
+
 ## Unwrapping or Parsing Payloads
 
 The built in parsing will work for most scenarios. But, if it isn't properly parsing your endpoint, or you want to
@@ -102,26 +122,6 @@ You can customize this in your config by specifying `xmlOptions`:
 {
 	xmlOptions: {
 		// any options from https://github.com/Leonidas-from-XIV/node-xml2js#options
-	}
-}
-~~~
-
-## Connector Options
-
-- `connectionTimeout` - Service-level Timeout. Represents integer containing the number of milliseconds to wait for a server to send response headers (and start the response body) before aborting the request. Note that if the underlying TCP connection cannot be established, the OS-wide TCP connection timeout will overrule the timeout option
-
-~~~
-{connectionTimeout: 5000}
-~~~
-
-You can customize this in your config file:
-
-~~~
-{
-	connectors: {
-		'appc.labs.soap': {
-			// any connector options
-		}
 	}
 }
 ~~~
