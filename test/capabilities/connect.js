@@ -1,6 +1,6 @@
 exports.connect = {
 	goodConfig: {
-		soapWSDL: 'http://wsf.cdyne.com/WeatherWS/Weather.asmx?WSDL',
+		soapWSDL: 'https://ws.cdyne.com/creditcardverify/luhnchecker.asmx?wsdl',
 		generateModelsFromSchema: true,
 		modelAutogen: true
 	},
