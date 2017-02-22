@@ -16,15 +16,15 @@ describe('Connector', function () {
 
 	describe('Model Generation', function () {
 
-		it('should expose simple methods', function (next) {
+		// None of the APIs have a simple method with no params right now
+		it.skip('should expose simple methods', function (next) {
 			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
 
-			model.GetWeatherInformation(function (err, results) {
+			model.GetCurrentMortgageIndexByWeekly(function (err, result) {
 				should(err).be.not.ok;
-				should(results).be.ok;
-				should(results.length).be.ok;
-				should(results[0]).be.an.Object;
+				should(result).be.ok;
+				should(result).be.an.Object;
 				next();
 			});
 		});
@@ -33,11 +33,12 @@ describe('Connector', function () {
 			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
 
-			model.GetCityWeatherByZIP({ZIP: '21921'}, function (err, result) {
+			model.CheckCC({CardNumber: '4111111111111111'}, function (err, result) {
 				should(err).be.not.ok;
 				should(result).be.ok;
 				should(result).be.an.Object;
-				should(result.City).be.eql('Elkton');
+				should(result.CardType).be.eql('VISA');
+				should(result.CardValid).be.true;
 				next();
 			});
 		});
@@ -140,7 +141,7 @@ describe('Connector', function () {
 			var model = server.getModel('appc.labs.soap/Global');
 			should(model).be.ok;
 
-			model.GetCityWeatherByZIP({ZIP: 'zip so bad, i cried a little'}, function (err, result) {
+			model.CheckCC({CardNumber: '4111111111111111'}, function (err, result) {
 				should(err).be.ok;
 				next();
 			});
@@ -159,7 +160,7 @@ describe('Connector', function () {
 				should(body.success).be.true;
 				should(body.global).be.ok;
 				should(body.global.CardType).be.eql('VISA');
-				should(body.weathersoap.CardValid).be.true;
+				should(body.global.CardValid).be.true;
 				cb();
 			});
 		});
@@ -167,7 +168,7 @@ describe('Connector', function () {
 		it('should stand up POST APIs for methods', function (cb) {
 			request({
 				method: 'POST',
-				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/weather/weathersoap/CheckCC',
+				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/CheckCC',
 				body: {
 					CardNumber: '4111111111111111'
 				},
@@ -178,9 +179,9 @@ describe('Connector', function () {
 				json: true
 			}, function (err, response, body) {
 				should(body.success).be.true;
-				should(body.weathersoap).be.ok;
-				should(body.weathersoap.CardType).be.eql('VISA');
-				should(body.weathersoap.CardValid).be.true;
+				should(body.global).be.ok;
+				should(body.global.CardType).be.eql('VISA');
+				should(body.global.CardValid).be.true;
 				cb();
 			});
 		});

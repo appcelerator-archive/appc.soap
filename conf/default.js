@@ -21,11 +21,11 @@ module.exports = {
 	connectors: {
 		'appc.labs.soap': {
 			// The URL to your Soap WSDL.
-			soapWSDL: 'http://wsf.cdyne.com/WeatherWS/Weather.asmx?WSDL',
+			soapWSDL: 'https://ws.cdyne.com/creditcardverify/luhnchecker.asmx?wsdl',
 
 			// Create models based on the WSDL that can be used in your API.
 			generateModelsFromSchema: true,
-			// Whether or not to generate APIs based on the methods in generated models. 
+			// Whether or not to generate APIs based on the methods in generated models.
 			modelAutogen: true
 		},
 		'screenshots.wsdl': {
@@ -36,7 +36,7 @@ module.exports = {
 
 			// Create models based on the WSDL that can be used in your API.
 			generateModelsFromSchema: true,
-			// Whether or not to generate APIs based on the methods in generated models. 
+			// Whether or not to generate APIs based on the methods in generated models.
 			modelAutogen: true
 		},
 		'stocks.wsdl': {
@@ -47,7 +47,7 @@ module.exports = {
 
 			// Create models based on the WSDL that can be used in your API.
 			generateModelsFromSchema: true,
-			// Whether or not to generate APIs based on the methods in generated models. 
+			// Whether or not to generate APIs based on the methods in generated models.
 			modelAutogen: true
 		},
 		'stocks.file.wsdl': {
@@ -58,7 +58,7 @@ module.exports = {
 
 			// Create models based on the WSDL that can be used in your API.
 			generateModelsFromSchema: true,
-			// Whether or not to generate APIs based on the methods in generated models. 
+			// Whether or not to generate APIs based on the methods in generated models.
 			modelAutogen: true,
 
 			// Make the stocks a bit more palatable.
