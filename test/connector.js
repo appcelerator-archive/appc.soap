@@ -149,7 +149,7 @@ describe('Connector', function () {
 		it('should stand up GET APIs for methods', function (cb) {
 			request({
 				method: 'GET',
-				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/GetCityWeatherByZIP?ZIP=21921',
+				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/CheckCC?CardNumber=4111111111111111',
 				auth: {
 					user: server.config.apikey,
 					password: ''
@@ -158,7 +158,8 @@ describe('Connector', function () {
 			}, function (err, response, body) {
 				should(body.success).be.true;
 				should(body.global).be.ok;
-				should(body.global.City).be.eql('Elkton');
+				should(body.global.CardType).be.eql('VISA');
+				should(body.weathersoap.CardValid).be.true;
 				cb();
 			});
 		});
@@ -166,9 +167,9 @@ describe('Connector', function () {
 		it('should stand up POST APIs for methods', function (cb) {
 			request({
 				method: 'POST',
-				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/weather/weathersoap/GetCityForecastByZIP',
+				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/weather/weathersoap/CheckCC',
 				body: {
-					ZIP: '21921'
+					CardNumber: '4111111111111111'
 				},
 				auth: {
 					user: server.config.apikey,
@@ -178,8 +179,8 @@ describe('Connector', function () {
 			}, function (err, response, body) {
 				should(body.success).be.true;
 				should(body.weathersoap).be.ok;
-				should(body.weathersoap.City).be.eql('Elkton');
-				should(body.weathersoap.ForecastResult).be.an.Object;
+				should(body.weathersoap.CardType).be.eql('VISA');
+				should(body.weathersoap.CardValid).be.true;
 				cb();
 			});
 		});
@@ -187,7 +188,7 @@ describe('Connector', function () {
 		it('should handle errors through API', function (cb) {
 			request({
 				method: 'GET',
-				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/GetCityWeatherByZIP?ZIP=such-bad-zip',
+				uri: 'http://localhost:' + server.port + '/api/appc.labs.soap/global/CheckCC?CardNumber=such-bad-zip',
 				auth: {
 					user: server.config.apikey,
 					password: ''
