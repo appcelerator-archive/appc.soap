@@ -12,8 +12,8 @@ module.exports = function (grunt) {
 					timeout: 30000,
 					ignoreLeaks: false,
 					check: {
-						statements: 84,
-						branches: 68,
+						statements: 80,
+						branches: 65,
 						functions: 85,
 						lines: 85
 					}
