@@ -10,13 +10,7 @@ module.exports = function (grunt) {
 				src: 'test',
 				options: {
 					timeout: 30000,
-					ignoreLeaks: false,
-					check: {
-						statements: 80,
-						branches: 65,
-						functions: 85,
-						lines: 85
-					}
+					ignoreLeaks: false
 				}
 			}
 		},
