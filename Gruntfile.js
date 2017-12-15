@@ -24,5 +24,4 @@ module.exports = function (grunt) {
 
 	// Register tasks.
 	grunt.registerTask('default', ['appcJs', 'mocha_istanbul:coverage', 'clean']);
-
 };

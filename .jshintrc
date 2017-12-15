@@ -1,7 +1,4 @@
 {
-	"lastsemic": true,
-	"laxbreak": true,
-	"asi" : true,
 	"browser": false,
 	"camelcase": false,
 	"curly": true,
